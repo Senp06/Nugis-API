@@ -1,7 +1,7 @@
 const db = require("../models");
-const Materi = db.konten;
+const Materi = db.materis;
 
-//CREATE: untuk menambahkan data ke dalam tabel quiz
+//CREATE: untuk menambahkan data ke dalam tabel materis
 exports.create = async (req, res) => {
 
     try {
@@ -18,13 +18,13 @@ exports.create = async (req, res) => {
     }
 }
 
-//READ: menampilkan atau mengambil semua data quiz sesuai model dari database
+//READ: menampilkan atau mengambil semua data materis sesuai model dari database
 exports.getAll = async(req, res) => {
     try {
-        const konten = await Materi.findAll()
+        const materis = await Materi.findAll()
         res.json({
             message: "Content retrieved successfully.",
-            data: konten,
+            data: materis,
         });
     } catch (error) {
         res.status(500).json({
@@ -38,13 +38,13 @@ exports.getAll = async(req, res) => {
 exports.update = async (req, res) => {
     const id = req.params.id
     try {
-        const quiz = await Materi.findByPk(id, { rejectOnEmpty: true})
-        quiz.update(req.body, {
+        const materis = await Materi.findByPk(id, { rejectOnEmpty: true})
+        materis.update(req.body, {
             where: {id}
         })
         res.json({
             message: "Content updated successfully.",
-            data: quiz,
+            data: materis,
         });
     } catch (error) {
         res.status(500).json({
@@ -58,9 +58,9 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
     const id = req.params.id
     try {
-        const quiz = await Materi.findByPk(id, { rejectOnEmpty: true})
+        const materis = await Materi.findByPk(id, { rejectOnEmpty: true})
 
-        quiz.destroy()
+        materis.destroy()
 
         res.json({
             message: "Materi with deleted."
@@ -77,43 +77,43 @@ exports.delete = async (req, res) => {
 exports.findOne = async (req, res) => {
     const id = req.params.id
     try {
-        const quiz = await Materi.findByPk(id, { rejectOnEmpty: true })
+        const materis = await Materi.findByPk(id, { rejectOnEmpty: true })
         res.json({
             message: `Content retrieved successfully with id=${id}.`,
-            data: quiz,
+            data: materis,
         });
     } catch (error) {
         res.status(500).json({
-            message: error.message || "Some error occurred while retrieving quiz",
+            message: error.message || "Some error occurred while retrieving materis",
             data: null,
         });
     }
 };
 
-// Menampilkan atau mengambil semua data quiz berdasarkan category tertentu
+// Menampilkan atau mengambil semua data materis berdasarkan category tertentu
 exports.getByCategoryId = async (req, res) => {
     const id = req.params.id
-    const konten = await Materi.findAll({
+    const materis = await Materi.findAll({
         where: {
             categoryId: id
         }
     })
     res.json({
         message: `Content retrieved successfully woth categoryId=${id}.`,
-        data: konten,
+        data: materis,
     });
 }
 
-// Menampilkan atau mengambil semua data quiz berdasarkan level tertentu
+// Menampilkan atau mengambil semua data materis berdasarkan level tertentu
 exports.getByLevelId = async (req, res) => {
     const id = req.params.id
-    const konten = await Materi.findAll({
+    const materis = await Materi.findAll({
         where : {
             levelId: id
         }
     })
     res.json({
         message: `Content retrieved successfully with levelId=${id}.`,
-        data: konten,
+        data: materis,
     });
 }
